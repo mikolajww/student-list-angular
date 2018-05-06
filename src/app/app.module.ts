@@ -8,6 +8,7 @@ import { StudentDetailComponent } from './student-detail/student-detail.componen
 import {StudentService} from './student.service';
 import { StudentSearchComponent } from './student-search/student-search.component';
 import { FilterPipe } from './filter.pipe';
+import { StudentAddComponent } from './student-add/student-add.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FilterPipe } from './filter.pipe';
     StudentListComponent,
     StudentDetailComponent,
     StudentSearchComponent,
-    FilterPipe
+    FilterPipe,
+    StudentAddComponent
   ],
   imports: [
     BrowserModule

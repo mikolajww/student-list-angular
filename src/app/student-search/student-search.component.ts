@@ -17,7 +17,6 @@ export class StudentSearchComponent implements OnInit {
   }
 
   search(query:HTMLInputElement) {
-    console.log(query.value);
     this.studentService.setFilter(query.value);
   }
 
@@ -29,6 +28,6 @@ export class StudentSearchComponent implements OnInit {
     this.studentService.sortingParam = (parseInt(param.value) == 0) ? (SortingParameter.SURNAME)
                                      : (parseInt(param.value) == 1) ? (SortingParameter.NAME) : (SortingParameter.INDEX);
     this.studentService.sortingType = (parseInt(type.value) == 0) ? (SortingType.DESC) : (SortingType.ASC);
-    this.studentService.sortStudnets();
+    this.studentService.sortStudents();
   }
 }

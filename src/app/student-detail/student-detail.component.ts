@@ -36,6 +36,16 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  deleteStudent():void {
+    if(confirm('Are you sure you want to delete this student?')) {
+      this.studentService.deleteStudent(this.student);
+    }
+  }
+
+  deleteGrade(grade:Grade):void {
+    this.studentService.deleteGrade(this.student, grade);
+  }
+
   average() {
     return this.student.average();
   }
