@@ -9,6 +9,8 @@ import {StudentService} from './student.service';
 import { StudentSearchComponent } from './student-search/student-search.component';
 import { FilterPipe } from './filter.pipe';
 import { StudentAddComponent } from './student-add/student-add.component';
+import {HttpClientModule} from "@angular/common/http";
+
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { StudentAddComponent } from './student-add/student-add.component';
     StudentAddComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [StudentService],
   bootstrap: [AppComponent]
