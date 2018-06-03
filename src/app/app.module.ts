@@ -3,9 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './component/app.component';
-
-import { HttpClientModule } from "@angular/common/http";
-import { AboutComponent } from './about/about.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
 import {StudentListComponent} from "./component/student/student-list/student-list.component";
 import {StudentDetailComponent} from "./component/student/student-detail/student-detail.component";
@@ -13,12 +11,21 @@ import {StudentSearchComponent} from "./component/student/student-search/student
 import {FilterPipe} from "./service/filter.pipe";
 import {StudentAddComponent} from "./component/student/student-add/student-add.component";
 import {StudentService} from "./service/student.service";
+import { LoginComponent } from './component/login/login.component';
+import {AboutComponent} from "./component/about/about.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {SignupComponent} from "./component/signup/signup.component";
+import {AuthService} from "./service/auth.service";
+import {TokenInterceptor} from "./service/token-interceptor.service";
+import {LoggedInGuard} from "./service/logged-in.guard";
 
 const routes:Routes = [
-  {path: '',redirectTo:'home', pathMatch:'full'},
-  {path: 'home', component:StudentListComponent},
-  {path: 'about', component:AboutComponent}
-]
+  {path: '',redirectTo:'about', pathMatch:'full'},
+  {path: 'home', component:StudentListComponent, canActivate: [LoggedInGuard]},
+  {path: 'about', component:AboutComponent},
+  {path: 'login', component:LoginComponent},
+  {path: 'signup', component:SignupComponent}
+];
 
 @NgModule({
   declarations: [
@@ -28,14 +35,22 @@ const routes:Routes = [
     StudentSearchComponent,
     FilterPipe,
     StudentAddComponent,
-    AboutComponent
+    AboutComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [StudentService],
+  providers: [StudentService, AuthService, LoggedInGuard, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
