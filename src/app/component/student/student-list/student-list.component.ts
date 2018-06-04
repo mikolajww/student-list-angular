@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {StudentService} from '../student.service';
-import {Student} from "../student";
+import {Student} from "../../../model/student";
+import {StudentService} from "../../../service/student.service";
+
 declare var jQuery:any;
 
 @Component({
