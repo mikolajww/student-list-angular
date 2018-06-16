@@ -3,15 +3,9 @@ import {Grade} from './grade';
 export class Student {
 
   id:number;
-  name: string;
-  surname: string;
-  indexNr: number;
   grades: Grade[];
 
-  constructor(name: string, surname: string, indexNr: number) {
-    this.name = name;
-    this.surname = surname;
-    this.indexNr = indexNr;
+  constructor(public name: string, public surname: string, public indexNr: number, public thumbnailUrl?:string) {
     this.grades = [];
   }
 

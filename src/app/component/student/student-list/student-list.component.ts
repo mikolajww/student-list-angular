@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Student} from "../../../model/student";
 import {StudentService} from "../../../service/student.service";
+import {forEach} from "@angular/router/src/utils/collection";
+import {AuthService} from "../../../service/auth.service";
 
 declare var jQuery:any;
 
@@ -13,13 +15,16 @@ export class StudentListComponent implements OnInit {
 
   students:Student[] = [];
 
-  constructor(private studentService:StudentService) {
+  constructor(private studentService:StudentService, private auth:AuthService) {
   }
 
   ngOnInit() {
     this.studentService.getStudents().subscribe(
       (s) => {
         this.students = s;
+        for (let s of this.students) {
+          this.studentService.getAvatar('male').subscribe(r => s.thumbnailUrl = r.results[0].picture.large);
+        }
       },
       err => {
         console.log(err);
@@ -46,5 +51,9 @@ export class StudentListComponent implements OnInit {
 
   studentSorted() {
     this.students = this.studentService.sortStudents(this.students);
+  }
+
+  getRole() {
+    return this.auth.getRole();
   }
 }
